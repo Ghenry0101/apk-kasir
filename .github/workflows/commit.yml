@@ -1,0 +1,26 @@
+name: Commit changes
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Menjalankan setiap hari pada pukul 00:00 UTC
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Make changes
+        run: |
+          date >> README.md
+
+      - name: Commit changes
+        run: |
+          git config --global user.name 'your-username'
+          git config --global user.email 'your-email'
+          git add README.md
+          git commit -m 'daily commit'
+          git push
+          Add GitHub Actions workflow for daily commits
